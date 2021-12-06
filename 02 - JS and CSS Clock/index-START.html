@@ -57,18 +57,57 @@
     }
 
     .hand {
-      width: 50%;
-      height: 6px;
       background: black;
       position: absolute;
       top: 50%;
+      transform: rotate(90deg);
+      transform-origin: 100%;
+      transition: all 0.05s cubic-bezier(0, 2.14, 1, 1);
+    }
+    .hour-hand {
+      width: 30%;
+      left: 20%;
+    }
+    .hour-hand,
+    .min-hand {
+      height: 6px;
+    }
+    .second-hand {
+      height: 3px;
+    }
+    .min-hand,
+    .second-hand {
+      width: 50%;
+    }
+  </style>
+  <script>
+    const hand = document.querySelector(".hand")
+    const hoursHand = document.querySelector(".hour-hand")
+    const minutesHand = document.querySelector(".min-hand")
+    const secondHand = document.querySelector(".second-hand")
+
+    // @TODO fix the glitch when second hand is at 360 deg (respectively 450 deg = 360 + 90)
+    // const handCssTransitionProperty = hand.style.transition
+    // transition is empty even in setDate func
+    // console.log(handCssTransitionProperty)
+
+    const setDate = () => {
+      const now = new Date()
+      const hours = now.getHours()
+      const hoursDegrees = (hours / 24) * 360 + 90
+    const minutes = now.getMinutes()
+      const minutesDegrees = (minutes / 60) * 360 + 90
+      const seconds = now.getSeconds()
+      const secondsDegrees = (seconds / 60) * 360 + 90
+
+      //secondsDegrees === '450' ? hand.style.transform = 'initial' : (hand.style.transform !== handCssTransitionProperty && hand.style.transform = handCssTransformProperty)¨
+
+      hoursHand.style.transform = `rotate(${hoursDegrees}deg)`
+      minutesHand.style.transform = `rotate(${minutesDegrees}deg)`
+      secondHand.style.transform = `rotate(${secondsDegrees}deg)`
     }
 
-  </style>
-
-  <script>
-
-
+    setInterval(setDate, 1000)
   </script>
 </body>
 </html>
