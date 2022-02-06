@@ -96,6 +96,23 @@
   </div>
 
 <script>
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+
+  const inputChanged = (input, index) => {
+    input.addEventListener('change', (input) => {
+      console.log(input, index);
+    })
+  }
+
+  const handleCheckboxes = (e) => {
+    console.log(e);
+  }
+
+  // arrow func aren't hoisted
+  document.addEventListener('keydown', (event) => handleCheckboxes(event));
+  checkboxes.forEach((input, index) => inputChanged(input, index));
+
 </script>
 </body>
 </html>
